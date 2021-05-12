@@ -1,0 +1,58 @@
+server:
+  port: 8081
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          appid-client:
+            provider: appid
+            client-id: 3d64cd73-981d-4ae4-bd6f-bd42d7c87ab9
+            client-secret: MmM2YTc2NzYtMDVjZi00ODRkLTk0NGUtNTA1NzJkM2IyZjlh
+            scope:
+            - openid
+            authorization-grant-type: authorization_code
+        provider:
+          appid:
+            issuer-uri: https://eu-gb.appid.cloud.ibm.com/oauth/v4/eeee2fb9-4127-4e79-802c-a860f0364f12
+            authorization-uri: https://eu-gb.appid.cloud.ibm.com/oauth/v4/eeee2fb9-4127-4e79-802c-a860f0364f12/authorization
+            token-uri: https://eu-gb.appid.cloud.ibm.com/oauth/v4/eeee2fb9-4127-4e79-802c-a860f0364f12/token
+            jwk-set-uri: https://eu-gb.appid.cloud.ibm.com/oauth/v4/eeee2fb9-4127-4e79-802c-a860f0364f12/publickeys
+            user-info-uri: https://eu-gb.appid.cloud.ibm.com/oauth/v4/eeee2fb9-4127-4e79-802c-a860f0364f12/userinfo
+            user-name-attribute: name
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /console
+
+
+#spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          appid:
+#            clientId: <<clientId>>
+#            clientSecret: <<clientSecret>>
+#            region: <<region>>
+#            tenantId: <<tenantId>>
+
+# If you are not sure of the region and tenantId use the below configuration
+
+

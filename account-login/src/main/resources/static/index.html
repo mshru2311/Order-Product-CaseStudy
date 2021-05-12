@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Simple Spring Boot Web Application</title>
+	<style>
+		table,
+		th,
+		td {
+			border: 1px solid black;
+		}
+
+		th,
+		td {
+			padding: 10px;
+		}
+	</style>
+	<style>
+		.center {
+			margin: 0;
+			position: absolute;
+			left: 50%;
+			-ms-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+		}
+	</style>
+	<style>
+	.container{
+		    text-align: -webkit-center;
+		    font-variant-caps: all-small-caps;
+	}
+	
+	</style>
+
+</head>
+
+<body>
+	<h1 id="welcome" style="display: none; background-color:cadetblue;text-align-last: center;">
+		Welcome to the Nature`s Grocery Store!</h1>
+	<div class="container">
+		<div class="center">
+			<button onclick="location.href='./login'" style="background-color:darksalmon;" id="login">Login</button>
+		</div>
+		<strong><span id="user"></span></strong>
+		<table id="table" style="display: none;">
+			<tr>
+				<td>
+					<div id="id01"></div>
+				</td>
+				<td>
+					<div id="id02"></div>
+				</td>
+				<td>
+					<div id="id03"></div>
+				</td>
+				<td>
+					<div id="id04"></div>
+				</td>
+				<td>
+					<div id="id05"></div>
+				</td>
+			</tr>
+		</table>
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
+
+			$().ready(function () {
+				$.get("./api/user")
+					.then(function (resp) {
+						$("#user").text("Hello " + resp.name);
+						$("#logout").show();
+						$("#login").hide();
+						$("#itemForm").show();
+						$("#table").show();
+						$("#welcome").show();
+						$("#accessMessage").hide();
+						$().ready(function () {
+							$.get("./userInfo")
+						}
+						);
+
+					});
+			});
+			$().ready(function () {
+				$.get("./api/product")
+					.then(function (resp) {
+						var i = 0;
+						var tab = [];
+						for (let r of resp) {
+
+							tab[i] = `<table> <thead>
+								 </thead>
+								<tbody>
+									<tr><td>Product Name: ${r.productName} </td></tr> 					
+								    <tr><td>Product Price: ${r.price} </td></tr>
+								    <tr><td>Product Quantity: ${r.quantity}</td></tr></tbody>
+								</table>`;
+							i = i + 1;
+
+						}
+						document.getElementById("id01").innerHTML = tab[0];
+						document.getElementById("id02").innerHTML = tab[1];
+						document.getElementById("id03").innerHTML = tab[2];
+						document.getElementById("id04").innerHTML = tab[3];
+						document.getElementById("id05").innerHTML = tab[4];
+					});
+			});
+		</script>
+		<form id="itemForm" style="display: none; padding-top: 2%" object="orderEntity" method="POST"
+			action="/postOrder">
+			<label for="Item">Item:</label>
+			<select id="productName" name="productName">
+				<option value="Kiwis">Kiwis</option>
+				<option value="Pineapples">Pineapples</option>
+				<option value="Oranges">Oranges</option>
+				<option value="Mangoes">Mangoes</option>
+				<option value="Apples">Apples</option>
+
+			</select>
+			<br>
+			<br>
+			<label for="Quantity">Quantity:</label>
+			<input type="text" id="quantity" name="quantity"><br>
+			<br>
+			<input type="submit"></input>
+		</form>
+		<h3></h3>
+		<button onclick="location.href='./logout'" id="logout" style="display: none; background-color: darksalmon;">Logout</button>
+	</div>
+</body>
+
+</html>
